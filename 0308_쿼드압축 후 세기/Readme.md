@@ -1,4 +1,67 @@
 ```
+
+def compress_or_recursion(arr, r_s, r_e, c_s, c_e):
+    zero = 0
+    one = 0
+    quad = [row[c_s:c_e] for row in arr[r_s:r_e]]
+    S = [x for row in arr[r_s:r_e] for x in row[c_s:c_e]]
+    if len(set(S)) == 1:
+        if S[0] == 0:
+            zero += 1
+        else:
+            one += 1
+    else:
+        a, b = divide(quad)
+        zero += a
+        one += b
+    return zero, one
+
+def divide(arr):
+    if len(arr)==1:
+        return 0,0
+    zero = 0
+    one = 0
+    a,b = compress_or_recursion(arr, 0, len(arr)//2, 0, len(arr)//2)
+    zero += a
+    one += b
+    a,b = compress_or_recursion(arr, 0, len(arr)//2, len(arr)//2, len(arr))
+    zero += a
+    one += b
+    a,b = compress_or_recursion(arr, len(arr)//2, len(arr), len(arr)//2, len(arr))
+    zero += a
+    one += b
+    a,b = compress_or_recursion(arr, len(arr)//2, len(arr), 0,len(arr)//2)
+    zero += a
+    one += b
+    return zero, one
+
+
+
+def solution(arr):
+    answer = []
+
+    return divide(arr)
+```
+실패
+
+테스트 1 〉	통과 (1.94ms, 10.2MB)<br>
+테스트 2 〉	통과 (1.65ms, 10.3MB)<br>
+테스트 3 〉	통과 (0.54ms, 10.3MB)<br>
+테스트 4 〉	통과 (0.14ms, 10.4MB)<br>
+테스트 5 〉	통과 (506.60ms, 13.4MB)<br>
+테스트 6 〉	통과 (145.55ms, 13.4MB)<br>
+테스트 7 〉	통과 (70.74ms, 13.4MB)<br>
+테스트 8 〉	통과 (29.86ms, 13.5MB)<br>
+테스트 9 〉	통과 (13.81ms, 13.4MB)<br>
+테스트 10 〉	실패 (43.51ms, 23.9MB)<br>
+테스트 11 〉	통과 (0.07ms, 10.3MB)<br>
+테스트 12 〉	통과 (0.12ms, 10.2MB)<br>
+테스트 13 〉	통과 (18.54ms, 13.5MB)<br>
+테스트 14 〉	통과 (163.27ms, 23.8MB)<br>
+테스트 15 〉	통과 (262.72ms, 23.8MB)<br>
+테스트 16 〉	통과 (114.52ms, 13.4MB)<br>
+
+```
 def compress_or_recursion(arr, r_s, r_e, c_s, c_e):
     zero = 0
     one = 0
