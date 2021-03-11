@@ -22,6 +22,8 @@ def solution(w,h):
     answer = answer * g
     return w*h - answer
 ```
+실패
+
 테스트 1 〉	통과 (0.01ms, 10.2MB)<br>
 테스트 2 〉	실패 (4.15ms, 10.1MB)<br>
 테스트 3 〉	실패 (0.59ms, 10.2MB)<br>
