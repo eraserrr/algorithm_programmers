@@ -11,20 +11,20 @@ class Solution {
         int val = 2;
         while (true) {
             int[] quotient = new int[arr.length];
-            int quot = 0;
+            int commonDivisor = 0;
             int partial = 1;
             
             for (int j=0;j<arr.length;j++) {
                 if (arr[j]%val == 0) {
                     quotient[j] = arr[j]/val;
-                    quot++;
+                    commonDivisor++;
                 }
                 else {
                     quotient[j] = arr[j];
                 }
             }
             
-            if (quot>=2) {
+            if (commonDivisor>=2) {
                 answer = answer * val;
                 val=2;
                 for (int i=0;i<arr.length;i++) {
