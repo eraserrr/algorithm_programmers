@@ -89,3 +89,56 @@ print(solution(2,2,["TT", "TT"]	))
 ```
 square[i][j]의 위쪽 인덱스만 고려해서 실패한듯 ㅠ ㅠ <br>
 떨어진 블록을 계산하는걸 다시 해야해서 해
+
+```
+def solution(m, n, board):
+    # m = 3
+    # n = 5
+    # board = ["AAAAA","AAAAA","AAAAA"]
+    
+    answer = 0
+    
+    # board 회전
+    tmp = []
+    for i in range(n):
+        a = []
+        for j in range(m-1,-1,-1,):
+            a.append(board[j][i])
+        tmp.append(a)
+
+    board = tmp
+
+    while (True):
+        tmp = []
+
+        # board 정보를 그대로 tmp에
+        for i in range(len(board)):
+            tmp.append([0 for _ in board[i]])
+        square_exist = False
+
+        # boar의 사각형 정보를 tmp 에 표시
+        for i in range(len(board)-1):
+            for j in range(len(board[i])-1):
+                # 아래 칸에 블록이 없다면
+                if len(board[i+1])==0 or j==len(board[i+1])-1:
+                    break
+                # 사각형 됨
+                if board[i][j]==board[i+1][j] and board[i][j+1]==board[i+1][j] and board[i][j]==board[i+1][j+1]:
+                    tmp[i][j] = 1
+                    tmp[i+1][j] = 1
+                    tmp[i][j+1] = 1
+                    tmp[i+1][j+1] = 1
+                    square_exist = True
+
+        # tmp 의 사각형 정보로 board 의 블록 제거
+        for i in range(len(tmp)):
+            for j in range(tmp[i].count(1)):
+                board[i].pop(tmp[i].index(1))
+                answer += 1
+
+        if square_exist==False:
+            break
+
+    return answer
+```
+90점..반례좀 찾아조..
