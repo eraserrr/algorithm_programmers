@@ -142,3 +142,55 @@ def solution(m, n, board):
     return answer
 ```
 90점..반례좀 찾아조..
+
+```
+def solution(m, n, board):
+    answer = 0
+    tmp = []
+    for i in range(n):
+        a = []
+        for j in range(m-1,-1,-1,):
+            a.append(board[j][i])
+        tmp.append(a)
+
+    board = tmp
+
+    while (True):
+        tmp = []
+
+        # board 정보를 그대로 tmp에
+        for i in range(len(board)):
+            tmp.append([0 for _ in board[i]])
+        square_exist = False
+
+        # boar의 사각형 정보를 tmp 에 표시
+        for i in range(len(board)-1):
+            for j in range(len(board[i])-1):
+                # board 기준 오른쪽칸이 비어있으면
+                if len(board[i + 1]) == 0 or j == len(board[i + 1]) - 1:
+                    break
+                # 사각형 됨
+                if board[i][j]==board[i+1][j] and board[i][j+1]==board[i+1][j] and board[i][j]==board[i+1][j+1]:
+                    tmp[i][j] = 1
+                    tmp[i+1][j] = 1
+                    tmp[i][j+1] = 1
+                    tmp[i+1][j+1] = 1
+                    square_exist = True
+
+        if square_exist==False:
+            break
+
+        # tmp 의 정보로 board 에 지울 블록을 표시(-1)
+        for i in range(len(tmp)):
+            for _ in range(tmp[i].count(1)):
+                board[i][tmp[i].index(1)] = -1
+                tmp[i][tmp[i].index(1)] = 0
+                answer += 1
+        # board 의 사각형 정보 -1로 블록 제거
+        for i in range(len(board)):
+            for _ in range(board[i].count(-1)):
+                board[i].remove(-1)
+
+    return answer
+```
+index 를 잘못써서 ;; ㅎㅎ일어난 문제였ㅅ다
