@@ -16,10 +16,10 @@ public class Sort {
         int arr[] = {4,5,1,6,32};
 
         // 일반적인 배열 sort
-//        Arrays.sort(arr);
-//        for (int i :arr){
-//            System.out.println(i);
-//        }
+        Arrays.sort(arr)   ;
+        for (int i :arr){
+            System.out.println(i);
+        }
 
         //Comparable 인터페이스 : 객체의 정렬 기준을 정해준다
         List<Player> players = new ArrayList<>();
@@ -38,6 +38,8 @@ public class Sort {
         Comparator<Player> comparator = new Comparator<Player>() {
             @Override
             public int compare(Player o1, Player o2) {
+                
+                // 이건 내림차순 
                 return o2.num - o1.num;
             }
         };
