@@ -1,3 +1,11 @@
+파이썬에서 문자열 정렬시 대소문자 구별됨 
+sorted(['a','A']) => ['A','a']
+
+딕셔너리 정렬
+sorted(d) => 키를 기준으로 오름차순 정렬된 키 리스트 반환
+sorted(d, key=lambda x:d[x]) => value를 기준으로 오름차순 정렬된 키 리스트 반환
+
+
 ```
 def solution(files):
     dic = {}
