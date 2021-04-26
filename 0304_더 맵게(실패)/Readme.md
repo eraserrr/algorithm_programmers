@@ -111,3 +111,55 @@ def solution(scoville, K):
 
 print(solution([10,12,1,2,3,9], 7))
 ```
+
+
+heaq 없이 큐 이용해서 푼 코드!!
+```
+def solution(scoville, K):
+    answer = 0
+    scoville = sorted(scoville, reverse=True)
+    min_scoville = scoville[-1]
+    second_scoville = scoville[-2]
+    mix_S = []
+    while min_scoville < K:
+        if len(scoville) <= 1:
+            answer = -1
+            break
+        else:
+            answer += 1
+            scoville.pop(-1)
+            scoville.pop(-1)
+            mix_scoville = min_scoville + (second_scoville * 2)
+
+            if mix_S == []:
+                min_mix_S = mix_scoville
+                mix_S = [mix_scoville]
+            else:
+                mix_S.append(mix_scoville)
+
+            if len(scoville) > 1:
+                min_scoville = scoville[-1]
+                second_scoville = scoville[-2]
+
+                if min_mix_S < second_scoville:
+                    scoville = scoville + mix_S
+                    scoville = sorted(scoville, reverse=True)
+
+                    mix_S = []
+
+                    min_scoville = scoville[-1]
+                    second_scoville = scoville[-2]
+            else:
+                scoville = scoville + mix_S
+                scoville = sorted(scoville, reverse=True)
+
+                mix_S = []
+
+                if len(scoville) >= 2:
+                    min_scoville = scoville[-1]
+                    second_scoville = scoville[-2]
+                else:
+                    min_scoville = scoville[-1]
+    return answer
+
+```
