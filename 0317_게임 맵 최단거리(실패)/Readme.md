@@ -162,4 +162,33 @@ def solution(maps):
     return -1
 ```
 
-개같넹~~~~ 
+성공 코드 - bfs 이용
+```
+import queue
+
+def solution(maps):
+    answer = 0
+    table = [[0]*len(maps[0]) for _ in maps]
+    table[0][0] = 1
+
+    d = [[0,1], [1,0],[0,-1],[-1,0]]
+    q = queue.Queue()
+    q.put([0,0])
+    while not q.empty():
+        y,x = q.get()
+
+        if x==len(maps[0])-1 and y==len(maps)-1:
+            return table[y][x]
+
+        for i in range(4):
+            dx = x + d[i][1]
+            dy = y + d[i][0]
+
+            if -1<dx<len(maps[0]) and -1<dy<len(maps):
+                if maps[dy][dx] and not table[dy][dx]:
+                    table[dy][dx] = table[y][x] + 1
+                    q.put([dy,dx])
+
+
+    return -1
+```
