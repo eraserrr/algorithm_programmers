@@ -87,3 +87,79 @@ def solution(maps):
 테스트 6 〉	실패 (0.04ms, 10.3MB)<br>
 테스트 7 〉	통과 (0.12ms, 10.4MB)<br>
 테스트 8 〉	실패 (0.04ms, 10.4MB)<br>
+
+
+
+4. 정확성 100, 효율성에서 0 => 실패
+```
+def solution(maps):
+
+    record = [[0]*len(maps[0]) for _ in maps]
+    record[0][0] = 1
+    direction = {'right':[0,1], 'left':[0,-1], 'up':[-1,0], 'down':[1,0]}
+    pre_loc = []
+    cur_loc = [0,0]
+    cross_road = []
+    cross_road_pre = []
+
+
+    while (True):
+        # 현재 위치에서 갈 수 있는 방향 탐색 후 저장
+        possible = []
+        for dir in direction.keys():
+            a = [a+b for a,b in zip(cur_loc,direction[dir])]
+            # 이 방향이 왔던 길일 때
+            if a==pre_loc:
+                continue
+            # 이 방향으로 이동하면 맵 밖을 벗어날 때
+            if a[0] <0 or a[0]>=len(maps) or a[1]<0 or a[1]>=len(maps[0]):
+                continue
+            # 이 방향으로 이동하면 블록으로 막힐 때
+            if maps[a[0]][a[1]]==0:
+                continue
+            # 이동 가능하긴 한데 이미 계산되었던 방향임
+            if record[a[0]][a[1]]:
+                # 현재가 비용이 큰 경로라면 현재 경로 중단
+                if record[cur_loc[0]][cur_loc[1]] + 1 > record[a[0]][a[1]]:
+                    continue
+
+            # 이동해도 되는방향(계산안됐거나, 지금이 최소인 방향)
+            possible.append(direction[dir])
+
+        # 현재 위치에서 이동 가능할 때는 이동하자
+        if possible:
+            go = possible.pop(0)
+            # 이동 가능한 길이 두개 이상일 때는 한곳으로만 가고 나머지 보류
+            if possible:
+                for road in possible:
+                    a = [a+b for a,b in zip(cur_loc,road)]
+                    # 갈림길이 이미 등록되어있다면
+                    if a in cross_road:
+                        if cur_loc == cross_road.index(a):
+                            continue
+                    # 갈림길 추가
+                    else:
+                        cross_road.append(a)
+                        cross_road_pre.append(cur_loc)
+                        record[a[0]][a[1]] = record[cur_loc[0]][cur_loc[1]] + 1
+
+            pre_loc = cur_loc
+            cur_loc = [a+b for a,b in zip(cur_loc, go)]
+            record[cur_loc[0]][cur_loc[1]] = record[pre_loc[0]][pre_loc[1]] + 1
+
+        # 현재 위치에서 이동 가능한 길이 없을 때
+        else:
+            if not cross_road:
+                break
+            another = cross_road.pop()
+            another_pre = cross_road_pre.pop()
+            pre_loc = another_pre
+            cur_loc = another
+
+    if record[len(maps)-1][len(maps[0])-1]:
+        return record[len(maps)-1][len(maps[0])-1]
+
+    return -1
+```
+
+개같넹~~~~ 
