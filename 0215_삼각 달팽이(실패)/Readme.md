@@ -2,7 +2,7 @@
 [y for x in answer for y in x]
 는
 
-sum(answer, []) 로도 표현이 
+sum(answer, []) 로도 표현이 가능하다
 
 
 ```
