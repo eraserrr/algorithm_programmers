@@ -1,3 +1,11 @@
+최소 공배수 구하는 함수
+```
+def f(a,b):
+    if b==0:
+        return a
+    return f(b, a%b)
+```
+
 ```
 def gcd(x, y):
     while y:
@@ -42,3 +50,19 @@ def solution(w,h):
 테스트 16 〉	실패 (42.49ms, 10.3MB)<br>
 테스트 17 〉	실패 (1564.13ms, 10.3MB)<br>
 테스트 18 〉	통과 (0.01ms, 10.2MB)<br>
+
+
+```
+def f(a,b):
+    if b==0:
+        return a
+
+    return f(b, a%b)
+
+def solution(w,h):
+    gcd = f(max(w,h), min(w,h))
+    if gcd==1:
+        return w*h - (w+h-1)
+
+    return w*h - (w/gcd + h/gcd -1)*gcd
+```
