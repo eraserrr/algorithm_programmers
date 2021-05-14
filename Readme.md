@@ -12,3 +12,6 @@ level2
 
 
 4.23 틀린문제 다시 풀기
+
+코딩테스트 복기 노션 주소
+https://www.notion.so/40ed296b98ed444d9b8409694c3941f0?v=79d9fa8ac1dd4f38b020e4ffccd11f4f
